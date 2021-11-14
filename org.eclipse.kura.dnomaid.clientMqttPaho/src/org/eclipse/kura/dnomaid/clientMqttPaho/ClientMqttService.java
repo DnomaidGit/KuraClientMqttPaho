@@ -94,10 +94,10 @@ public class ClientMqttService implements ConfigurableComponent{
 	            		String publishTopic = ConnectionConstants.getInst().getPublishTopic();
 	            		String publishMessage = ConnectionConstants.getInst().getPublishMessage();
 	            		mqtt.publish(publishTopic, publishMessage);
-	            		S_LOGGER.info("Publish topic: "+publishTopic+" Publish message: "+publishMessage+" !!!!!!!!!!");
+	            		S_LOGGER.info("#Publish topic: "+publishTopic+" #Publish message: "+publishMessage);
 	            		if (Status.getInst().isNewMessageReceived(LAST_MESSAGE_RECEIVED)) {
 	            			LAST_MESSAGE_RECEIVED = Status.getInst().getLastMessageReceived();
-	            			S_LOGGER.info("Last message received: "+LAST_MESSAGE_RECEIVED+" !!!!!!!!!!");
+	            			S_LOGGER.info("#Last message received: "+LAST_MESSAGE_RECEIVED);
 	            		}
 	            	}
             	}
