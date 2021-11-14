@@ -3,6 +3,8 @@ package org.eclipse.kura.dnomaid.clientMqttPaho.mqtt.global;
 public class Status {
     private ConnectionStatus status;
     private TopicStatus topicStatus;
+    private String lastMessageReceived;
+    private Boolean newMessageReceived;
     public static final String SPACE = " ";
     public static final String EMPTY = new String();
     public enum ConnectionStatus {CONNECTING, CONNECTED, DISCONNECTING, DISCONNECTED, ERROR, NONE}
@@ -12,6 +14,7 @@ public class Status {
     private Status(){
     	status = ConnectionStatus.NONE;
     	topicStatus = TopicStatus.NONE;
+    	lastMessageReceived = SPACE;
     }
     public  static synchronized Status getInst() {
         if (instance==null) {
@@ -41,5 +44,15 @@ public class Status {
         return (status == ConnectionStatus.CONNECTED) || (status == ConnectionStatus.CONNECTING);
     }
     public boolean noError() { return status != ConnectionStatus.ERROR; }
-
+	public String getLastMessageReceived() {
+		return lastMessageReceived;
+	}
+	public void setLastMessageReceived(String lastMessageReceived) {
+		this.lastMessageReceived = lastMessageReceived;
+	}
+	public Boolean isNewMessageReceived(String lastMessageReceived) {
+		newMessageReceived = false;
+		if (!this.lastMessageReceived.equals(lastMessageReceived))newMessageReceived = true;
+		return newMessageReceived;
+	}
 }

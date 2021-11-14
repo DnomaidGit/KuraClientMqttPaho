@@ -21,6 +21,7 @@ public class ConnectionConstants implements ConnectionDefaults {
 	private String Password;
 	private String MessageLWT;
 	private String PublishTopic;
+	private String PublishMessage;
 	private String SubscribeTopic;
 	private MqttConnectOptions conOpt;
 
@@ -85,6 +86,9 @@ public class ConnectionConstants implements ConnectionDefaults {
 
 	public String getPublishTopic() {return PublishTopic;}
 	public void setPublishTopic(String publishTopic) {this.PublishTopic = publishTopic;}
+	
+	public String getPublishMessage() {return PublishMessage;}
+	public void setPublishMessage(String publishTopic) {this.PublishMessage = publishTopic;}
   
 	public MqttConnectOptions getConOpt() {return conOpt;}
   
@@ -114,6 +118,7 @@ public class ConnectionConstants implements ConnectionDefaults {
 		Password = PASSWORD;
 		MessageLWT = MESSAGE_LWT;
 		PublishTopic = PUBLISH_TOPIC;
+		PublishMessage = PUBLISH_MESSAGE;
 		SubscribeTopic = SUBSCRIBE_TOPIC;
 	}	    
 }

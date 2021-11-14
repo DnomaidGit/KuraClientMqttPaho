@@ -16,6 +16,7 @@ public interface ConnectionDefaults extends Constants {
   String USERNAME = "guest";
   String PASSWORD = "test12";
   String MESSAGE_LWT =CLIENT_ID+" disconnected!";
-  String PUBLISH_TOPIC =CMND_PREFIX;
+  String PUBLISH_TOPIC =ID;
+  String PUBLISH_MESSAGE ="Hello!!!";
   String SUBSCRIBE_TOPIC =ID+"/#";
 }

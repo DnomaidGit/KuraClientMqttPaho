@@ -17,15 +17,15 @@
     <OCD id="org.eclipse.kura.DNOMAID.clientMqttPaho.ClientMqttSetting"
          name="clientMqttPahoDnomaid"
          description="MqttDnomaid --ClientMqtt setting--">
-        <Icon resource="OSGI-INF/schedule.png" size="32"/>
+        <Icon resource="OSGI-INF/logodnomaid.png" size="32"/>
         <!--Connection-->  		
-  		<AD id="Enable"
-            name="Enable"
+  		<AD id="ConnectionDisconnection"
+            name="Connection/Disconnection"
             type="Boolean"
             cardinality="0"
             required="true"
             default="false"
-            description="Enable"/>  		
+            description="Connection = TRUE ;Disconnection = FALSE"/>  		
  		<AD id="Server"
             name="Server"
             type="String"
@@ -69,18 +69,28 @@
             cardinality="0"
             required="true"
             default="test12"
-            description="Password"/>          		  		
-    	<!--Add Device-->
-    	<AD id="1TypeRelay" name="01-Type device" type="String" cardinality="0" required="false" default="none" description="Type device">
-    		<Option label="None" 	value="none"/>
-  			<Option label="SonoffS20" value="SonoffS20"/>
-  			<Option label="XiaomiZNCZ04LM" value="XiaomiZNCZ04LM"/>  			
-  		</AD>
-    	<AD id="1NumberTypeDevice" name="01-Number Type Device" type="String" cardinality="0" required="false" default="1" description="Select Hour" >
-    		<Option label="01" 	value="1" /><Option label="02" 	value="2" /><Option label="03" 	value="3" /><Option label="04" 	value="4" />
-    		<Option label="05" 	value="5" /><Option label="06" 	value="6"/>
-		</AD>    	
-  		
+            description="Password"/>         
+        <AD id="PublishTopic"
+            name="PublishTopic"
+            type="String"
+            cardinality="0"
+            required="true"
+            default="Dnomaid"
+            description="Publish Topic"/>           		  		
+   	  	<AD id="PublishMessage"
+            name="PublishMessage"
+            type="String"
+            cardinality="0"
+            required="true"
+            default="Hello Dnomaid"
+            description="Publish Message"/> 
+        <AD id="SubscribeTopic"
+            name="SubscribeTopic"
+            type="String"
+            cardinality="0"
+            required="true"
+            default="Dnomaid/#"
+            description="Subscribe Topic"/>           		
     	
     </OCD>
     <Designate 
