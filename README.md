@@ -1,10 +1,8 @@
 ***
 # KuraClientMqttPaho
-
 ***
 ## General Info
 Basic example client mqtt Paho for an Eclipse Kura project.
-
 ***
 ## Development Environment
 * Eclipse Neon Version: 2019-09 R (4.13.0). An additional plugin, mToolkit, is needed to allow remote connectivity to an OSGi framework on a Kura-enabled target device. To install mToolkit into Eclipse, use the following steps: 
@@ -29,5 +27,10 @@ installed [Eclipse Kura User Workspace](https://www.eclipse.org/kura/downloads.p
 The binary package ready for the installation can be
 found in folder "**resources/dp**".
 ***
+## Links
+Documentation:
+* https://www.eclipse.org/paho/
+***
+
 
 
