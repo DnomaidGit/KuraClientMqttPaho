@@ -1,6 +1,5 @@
 package org.eclipse.kura.dnomaid.clientMqttPaho.mqtt.client;
 
-import org.eclipse.kura.dnomaid.clientMqttPaho.mqtt.client.Connection;
 import org.eclipse.kura.dnomaid.clientMqttPaho.mqtt.global.Status;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;

@@ -17,7 +17,7 @@ public class ClientMqttSetup implements Constants {
     ClientMqttSetup (final Map<String, Object> properties) {
         requireNonNull(properties);
         this.properties = properties;
-        Updata();
+    	Updata();    			
     }
     
     Boolean isEnable() {

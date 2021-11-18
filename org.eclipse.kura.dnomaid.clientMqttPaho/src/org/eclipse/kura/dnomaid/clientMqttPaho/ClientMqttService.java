@@ -24,14 +24,16 @@ public class ClientMqttService implements ConfigurableComponent{
     private final ScheduledExecutorService worker;
     private ScheduledFuture<?> handle;
     private static boolean ENABLE;
+    private static String LAST_SUBSCRIBE;
     private static String LAST_MESSAGE_RECEIVED;
-    private ClientMqttSetup ClientMqttSetup;
+    private ClientMqttSetup clientMqttSetup;
     
     public ClientMqttService() {
     	super();
     	this.worker = Executors.newSingleThreadScheduledExecutor();
     	this.mqtt = new Mqtt();
     	ENABLE = false;
+    	LAST_SUBSCRIBE = " ";
     	LAST_MESSAGE_RECEIVED = " ";
     }
      
@@ -45,26 +47,18 @@ public class ClientMqttService implements ConfigurableComponent{
     }    
     protected void deactivate(ComponentContext componentContext) {
     	S_LOGGER.info("##Desactive component " + ALIAS_APP_ID);    	
-    	mqtt.disconnection();
+    	if(Status.getInst().isConnected()) {
+			mqtt.disconnection();
+		}
     	S_LOGGER.info("Bundle " + ALIAS_APP_ID + " has stopped!");
         this.worker.shutdown();
     }    
     public void updated(Map<String, Object> properties) {
     	S_LOGGER.info("Updated properties..." + ALIAS_APP_ID);
-    	dumpProperties("Update", properties); 
-    	this.ClientMqttSetup = new ClientMqttSetup(properties);
-        ENABLE = this.ClientMqttSetup.isEnable();  
+    	dumpProperties("Update", properties);
+    	this.clientMqttSetup = new ClientMqttSetup(properties);    	
+        ENABLE = this.clientMqttSetup.isEnable();  
         // store the properties received
-        if (ENABLE) {
-        	if(!Status.getInst().isConnectedOrConnecting()) {
-        		mqtt.connection();
-        		mqtt.subscribe();
-        	}
-    	}else {
-    		if(Status.getInst().isConnected()) {
-    			mqtt.disconnection();
-    		}
-    	}
         doPublish();
         S_LOGGER.info("...Updated properties done."+ ALIAS_APP_ID);
     }
@@ -89,8 +83,14 @@ public class ClientMqttService implements ConfigurableComponent{
             @Override
             public void run() {
             	Thread.currentThread().setName(getClass().getSimpleName());
-            	if(ClientMqttSetup != null) {
 	            	if(ENABLE) {
+	            		if(!Status.getInst().isConnectedOrConnecting()) {
+	                		mqtt.connection();	                		
+	                	}
+	            		if(Status.getInst().isConnected()& !LAST_SUBSCRIBE.equals(ConnectionConstants.getInst().getSubscribeTopic())) {
+	            			mqtt.subscribe();
+	            			LAST_SUBSCRIBE = ConnectionConstants.getInst().getSubscribeTopic();
+	            		}
 	            		String publishTopic = ConnectionConstants.getInst().getPublishTopic();
 	            		String publishMessage = ConnectionConstants.getInst().getPublishMessage();
 	            		mqtt.publish(publishTopic, publishMessage);
@@ -99,9 +99,12 @@ public class ClientMqttService implements ConfigurableComponent{
 	            			LAST_MESSAGE_RECEIVED = Status.getInst().getLastMessageReceived();
 	            			S_LOGGER.info("#Last message received: "+LAST_MESSAGE_RECEIVED);
 	            		}
+	            	}else {
+	            		if(Status.getInst().isConnected()) {
+	            			mqtt.disconnection();
+	            		}
 	            	}
             	}
-            }
         }, 0, pubrate, TimeUnit.MILLISECONDS);
     }
 }
