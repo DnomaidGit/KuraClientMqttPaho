@@ -91,15 +91,20 @@ public class ConnectionConstants implements ConnectionDefaults {
 	public void setPublishMessage(String publishTopic) {this.PublishMessage = publishTopic;}
   
 	public MqttConnectOptions getConOpt() {return conOpt;}
+	
+	public MqttConnectOptions updateConOpt(){
+	     conOpt.setCleanSession(CleanSession);
+	     conOpt.setConnectionTimeout(TimeOut);
+	     conOpt.setKeepAliveInterval(KeepAlive);
+	     conOpt.setUserName(Username);
+	     conOpt.setPassword(Password.toCharArray());
+	     return conOpt;
+	   }
   
 //Methods
 	private void InitConOpt(){
 		conOpt =  new MqttConnectOptions();
-		conOpt.setCleanSession(CleanSession);
-		conOpt.setConnectionTimeout(TimeOut);
-      	conOpt.setKeepAliveInterval(KeepAlive);
-      	conOpt.setUserName(Username);
-      	conOpt.setPassword(Password.toCharArray());   	  
+		updateConOpt();   	  
 	}
 	private void InitDefault(){
 		Uri = URI;
